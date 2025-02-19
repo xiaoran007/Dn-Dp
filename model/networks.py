@@ -104,7 +104,7 @@ def define_G(opt):
         dropout=model_opt['unet']['dropout'],
         image_size=model_opt['diffusion']['image_size'],
 
-        patch_n=model_opt['unet']['patch_n'],
+        patch_n=model_opt['unet']['patch_n'] if 'patch_n' in model_opt['unet'] else 1,
         patch_n_cond=model_opt['unet']['patch_n_cond'] if 'patch_n_cond' in model_opt['unet'] else 1
     )
     # model = unet.UNet_parallel(
@@ -124,7 +124,7 @@ def define_G(opt):
         image_size=model_opt['diffusion']['image_size'],
         channels=model_opt['diffusion']['channels'],
         loss_type=model_opt['loss_type'] if 'loss_type' in model_opt else 'l2',    # L1 or L2
-        mean_type=model_opt['mean_type'], # 'x0' or 'epsilon'
+        mean_type=model_opt['mean_type'] if 'mean_type' in model_opt else 'epsilon', # 'x0' or 'epsilon'
         conditional=model_opt['diffusion']['conditional'],
         schedule_opt=model_opt['beta_schedule']['train']
     )
